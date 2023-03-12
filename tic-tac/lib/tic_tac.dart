@@ -6,21 +6,24 @@ int count = 1;
 main() {
   List<String> fields = List.generate(9, (i) => " ");
 
-  List rows = [[fields[0],fields[1],fields[2]],[fields[3],fields[4],fields[5]],[fields[6],fields[7],fields[8]]];
-  List columns = [[fields[0],fields[3],fields[6]],[fields[1],fields[4],fields[7]],[fields[2],fields[5],fields[8]]];
-  List diagonals = [[fields[0],fields[4],fields[8]],[fields[2],fields[4],fields[6]]];
+  checker(){
+    List rows = [[fields[0],fields[1],fields[2]],[fields[3],fields[4],fields[5]],[fields[6],fields[7],fields[8]]];
+    List columns = [[fields[0],fields[3],fields[6]],[fields[1],fields[4],fields[7]],[fields[2],fields[5],fields[8]]];
+    List diagonals = [[fields[0],fields[4],fields[8]],[fields[2],fields[4],fields[6]]];
 
-  print(rows);
-  print(rows[0]);
-  print(rows[0][0]);
-
-  void checkWin(dimension){
-    for (List element in dimension) {
-      if (element[0] != " " && element[0] == element[1] && element[0] == element[2]){
-        print("that's it");
+    void checkWin(dimension){
+      for (List element in dimension) {
+        if (element[0] != " " && element[0] == element[1] && element[0] == element[2]){
+          print("that's it");
+        }
       }
     }
+
+    checkWin(rows);
+    checkWin(columns);
+    checkWin(diagonals);
   }
+
 
   bool gameIsEnded = false;
 
@@ -35,6 +38,7 @@ main() {
     else {
       applyMove(fields);
       drawBoard(fields);
+      checker();
     }
   }
 }
