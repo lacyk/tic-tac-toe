@@ -1,7 +1,7 @@
 import 'dart:io';
 
 int count = 1;
-
+bool gameIsEnded = false;
 
 main() {
   List<String> fields = List.generate(9, (i) => " ");
@@ -14,7 +14,8 @@ main() {
     void checkWin(dimension){
       for (List element in dimension) {
         if (element[0] != " " && element[0] == element[1] && element[0] == element[2]){
-          print("that's it");
+          print("Player ${fields[0]} won the game !");
+          gameIsEnded = true;
         }
       }
     }
@@ -24,16 +25,19 @@ main() {
     checkWin(diagonals);
   }
 
+  // while (!gameIsEnded) {
+  //
+  // }
 
-  bool gameIsEnded = false;
 
   while (!gameIsEnded) {
+    // check if the board is full
     if ((fields.indexWhere((element) => element == " ") == -1)) {
-      return gameIsEnded == true;
+      gameIsEnded = true;
       // check diagonals
-    } else if (fields[0] != ' ' && fields[0] == fields[3] && fields[0] == fields[6]) {
-      print("Player ${fields[0]} won the game !");
-      return;
+    // } else if (fields[0] != ' ' && fields[0] == fields[3] && fields[0] == fields[6]) {
+    //   gameIsEnded = true;
+    //   print("Player second won the game !");
     }
     else {
       applyMove(fields);
