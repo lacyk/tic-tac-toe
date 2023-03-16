@@ -1,10 +1,16 @@
 import 'dart:io';
+import 'package:colorize/colorize.dart';
+
+import 'playerClass.dart';
 
 class Board {
 
   int count = 1;
   bool gameIsEnded = false;
-  List<String> fields = List.generate(9, (i) => " ");
+  List<dynamic> fields = List.generate(9, (item) => " ");
+
+  Player playerX = Player(Colorize("x"));
+  Player playerO = Player(Colorize("O"));
 
   void checker() {
     List rows = [
@@ -23,16 +29,12 @@ class Board {
     ];
 
     void checkWin(dimension) {
-      String playerSymbol;
-      if (count % 2 == 0) {
-        playerSymbol = "X";
-      } else {
-        playerSymbol = "O";
-      }
       for (List element in dimension) {
-        if (element[0] != " " && element[0] == element[1] &&
-            element[0] == element[2]) {
-          print("Player $playerSymbol won the game !");
+        if (element[0] != " " && element[0] == element[1] && element[0] == element[2]) {
+          // element[0] = playerX.playerSymbol.bgCyan();
+          // drawBoard(fields);
+
+          print("Player ${element[0]} won the game !");
           gameIsEnded = true;
         }
       }
@@ -54,7 +56,7 @@ class Board {
   }
 
   int makeMove() {
-    print("please make a move");
+    print("Make a move (0..8):");
     int move = int.parse(stdin.readLineSync()!);
     return move;
   }
@@ -64,13 +66,33 @@ class Board {
 
     if (fields[move] == ' ') {
       if (count % 2 == 1) {
-        fields[move] = "X";
+        fields[move] = playerX.playerSymbol.red();
       } else {
-        fields[move] = "O";
+        fields[move] = playerO.playerSymbol.yellow();
       }
       count++;
     } else {
-      print("try again");
+      print("Try again !");
+    }
+  }
+
+  void play() {
+    while (!gameIsEnded) {
+      // check if the board is full
+      if ((fields.indexWhere((element) => element == " ") == -1)) {
+        print("It's a draw !");
+        gameIsEnded = true;
+      }
+      else {
+        try {
+          applyMove(fields);
+        }
+        catch(e) {
+          print(e);
+        }
+        drawBoard(fields);
+        checker();
+      }
     }
   }
 
