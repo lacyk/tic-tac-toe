@@ -9,6 +9,7 @@ class Board {
   bool gameIsEnded = false;
   List<dynamic> fields = List.generate(9, (item) => " ");
 
+  // TODO – add choosing the character for each player
   Player playerX = Player(Colorize("x"));
   Player playerO = Player(Colorize("O"));
 
@@ -31,9 +32,6 @@ class Board {
     void checkWin(dimension) {
       for (List element in dimension) {
         if (element[0] != " " && element[0] == element[1] && element[0] == element[2]) {
-          // element[0] = playerX.playerSymbol.bgCyan();
-          // drawBoard(fields);
-
           print("Player ${element[0]} won the game !");
           gameIsEnded = true;
         }
@@ -56,7 +54,7 @@ class Board {
   }
 
   int makeMove() {
-    print("Make a move (0..8):");
+    print("Make a move (0-8):");
     int move = int.parse(stdin.readLineSync()!);
     return move;
   }

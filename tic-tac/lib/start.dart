@@ -1,4 +1,6 @@
 import 'dart:io';
+import 'package:colorize/colorize.dart';
+
 import 'boardClass.dart';
 
 startApp() {
@@ -6,9 +8,9 @@ startApp() {
 
   while(!quit) {
 
-    print('====================');
-    print('Tic-Tac-Toe Main Menu');
-    print('====================');
+    print(Colorize('====================').yellow());
+    print(Colorize('Tic-Tac-Toe Main Menu').lightMagenta());
+    print(Colorize('====================').yellow());
     print('1. Start a New Game');
     print('2. About');
     print('3. Quit');
@@ -31,9 +33,6 @@ startApp() {
         showAbout();
         break;
       case 3:
-        print("3nd Case");
-        break;
-      case 4:
         quit = true;
         break;
       default:
